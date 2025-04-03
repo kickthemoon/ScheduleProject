@@ -1,0 +1,37 @@
+package com.study.schedule.user.entity;
+
+
+import com.study.schedule.others.entity.BaseEntity;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Getter
+@Entity
+@Table(name = "user")
+@NoArgsConstructor
+public class UserEntity extends BaseEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, unique = true)
+    private String username;
+
+    @Column(nullable = false)
+    private String password;
+
+    private String email;
+
+    public UserEntity(String username, String password, String email) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+    }
+
+    public void updateUsernameAndEmail(String username, String email) {
+        this.username = username;
+        this.email = email;
+    }
+}
