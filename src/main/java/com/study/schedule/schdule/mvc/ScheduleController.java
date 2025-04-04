@@ -2,8 +2,8 @@ package com.study.schedule.schdule.mvc;
 
 import com.study.schedule.schdule.dto.ScheduleRequestDto;
 import com.study.schedule.schdule.dto.ScheduleResponseDto;
-import com.study.schedule.others.dto.updateDto.UpdateTitleAndContentsDto;
-import com.study.schedule.others.dto.deleteDto.DeleteCheckPassword;
+import com.study.schedule.schdule.dto.updateDto.UpdateTitleAndContentsDto;
+import com.study.schedule.config.deleteCheck.DeleteCheckPasswordDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,7 +25,7 @@ public class ScheduleController {
     public ResponseEntity<ScheduleResponseDto> registration(@RequestBody @Valid ScheduleRequestDto requestDto) {
         ScheduleResponseDto scheduleResponseDto =
                 scheduleService.registration(
-                        requestDto.getTitle(), requestDto.getContents(), requestDto.getUserId()
+                        requestDto.getTitle(), requestDto.getContents(), requestDto.getPassowrd(), requestDto.getUserId()
                 );
 
         return new ResponseEntity<>(scheduleResponseDto, HttpStatus.CREATED);
@@ -53,7 +53,9 @@ public class ScheduleController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id, @RequestBody DeleteCheckPassword requestDto) {
+    public ResponseEntity<Void> delete(@PathVariable Long id, @RequestBody DeleteCheckPasswordDto requestDto) {
+        // config > deleteCheck > DeleteCheckPassowrdDto
+
         scheduleService.delete(id,requestDto.getCheckPassword());
         return new ResponseEntity<>(HttpStatus.OK);
     }

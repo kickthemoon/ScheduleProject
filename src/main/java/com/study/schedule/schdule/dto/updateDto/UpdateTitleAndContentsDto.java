@@ -1,4 +1,4 @@
-package com.study.schedule.others.dto.updateDto;
+package com.study.schedule.schdule.dto.updateDto;
 
 
 import lombok.Getter;

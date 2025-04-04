@@ -1,6 +1,5 @@
-package com.study.schedule.others.config;
+package com.study.schedule.config;
 
-import com.study.schedule.others.filter.Filter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -18,7 +18,6 @@ public class UserResponseDto {
         this.email = email;
     }
 
-    // user 등록
     public static UserResponseDto toDto(UserEntity userEntity) {
         return new UserResponseDto(userEntity.getId(), userEntity.getUsername(), userEntity.getEmail());
     }

@@ -1,4 +1,4 @@
-package com.study.schedule.others.filter;
+package com.study.schedule.config;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,7 +23,6 @@ public class Filter implements jakarta.servlet.Filter {
                 throw new RuntimeException("로그인 해주세요.");
             }
         }
-
         filterChain.doFilter(request,response);
     }
 

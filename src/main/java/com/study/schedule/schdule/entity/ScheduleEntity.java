@@ -1,6 +1,6 @@
 package com.study.schedule.schdule.entity;
 
-import com.study.schedule.others.entity.BaseEntity;
+import com.study.schedule.config.localDateTime.BaseEntity;
 import com.study.schedule.user.entity.UserEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -12,20 +12,17 @@ import lombok.NoArgsConstructor;
 @Table(name = "schedule")
 @NoArgsConstructor
 public class ScheduleEntity extends BaseEntity {
+    // config > localDateTime > BaseEntity
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-//    @Column(nullable = false, unique = true)
-//    private String user;
 
     @Column(nullable = false)
     private String title;
 
     private String contents;
 
-    // 단반향 받는 쪽
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity userEntityId;

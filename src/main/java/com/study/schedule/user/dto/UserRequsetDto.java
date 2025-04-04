@@ -3,8 +3,8 @@ package com.study.schedule.user.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
-import org.hibernate.validator.constraints.Range;
 
 @Getter
 public class UserRequsetDto {
@@ -13,7 +13,7 @@ public class UserRequsetDto {
     private final String username;
 
     @NotNull
-    @Range(min = 4, max = 13)
+    @Size(min = 4, max = 13)
     private final String password;
 
     @Email

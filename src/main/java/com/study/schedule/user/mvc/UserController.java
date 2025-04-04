@@ -1,9 +1,11 @@
 package com.study.schedule.user.mvc;
 
-import com.study.schedule.others.dto.deleteDto.DeleteCheckPassword;
-import com.study.schedule.others.dto.updateDto.UpdateUsernameAndEmailDto;
+import com.study.schedule.config.deleteCheck.DeleteCheckPasswordDto;
+import com.study.schedule.user.dto.updateDto.UpdateUsernameAndEmailDto;
 import com.study.schedule.user.dto.UserRequsetDto;
 import com.study.schedule.user.dto.UserResponseDto;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,9 +32,6 @@ public class UserController {
                 );
 
          return new ResponseEntity<>(signUpResponseDto, HttpStatus.CREATED);
-
-        // URI location = URI.create("/users/" + signUpResponseDto.getId());
-        // return ResponseEntity.created(location).body(signUpResponseDto);
     }
 
     @GetMapping
@@ -58,8 +57,11 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id,@RequestBody DeleteCheckPassword requestDto) {
-        userService.delete(id,requestDto.getCheckPassword());
+    public ResponseEntity<Void> delete(@PathVariable Long id, @RequestBody DeleteCheckPasswordDto requestDto, HttpServletRequest request, HttpServletResponse response) {
+        // config > deleteCheck > DeleteCheckPassowrdDto
+
+        userService.delete(id,requestDto.getCheckPassword(),request,response);
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

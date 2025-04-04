@@ -1,4 +1,4 @@
-package com.study.schedule.others.entity;
+package com.study.schedule.config.localDateTime;
 
 
 import jakarta.persistence.Column;

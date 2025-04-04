@@ -1,7 +1,7 @@
 package com.study.schedule.user.entity;
 
 
-import com.study.schedule.others.entity.BaseEntity;
+import com.study.schedule.config.localDateTime.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "user")
 @NoArgsConstructor
 public class UserEntity extends BaseEntity {
+    // config > localDateTime > BaseEntity
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,11 +1,10 @@
-package com.study.schedule.others.dto.updateDto;
+package com.study.schedule.user.dto.updateDto;
 
 import lombok.Getter;
 
 @Getter
 public class UpdateUsernameAndEmailDto {
-    // 유저 이름과 e메일을 수정함
-    // 비밀번호를 입력받고 일치하면 실행되야함
+
     private final String newUsername;
     private final String newEmail;
     private final String checkPassword;

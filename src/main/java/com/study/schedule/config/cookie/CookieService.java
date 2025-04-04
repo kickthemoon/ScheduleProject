@@ -1,4 +1,4 @@
-package com.study.schedule.others.cookieAndSession;
+package com.study.schedule.config.cookie;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
-public class CookieAndSession {
+public class CookieService {
 
     public void loginCookie(String username, HttpSession session, HttpServletResponse response) {
 
@@ -20,7 +20,6 @@ public class CookieAndSession {
         cookie.setHttpOnly(true);
         cookie.setPath("/");
         response.addCookie(cookie);
-
     }
 
     public void logoutCookie(HttpServletRequest request, HttpServletResponse response) {

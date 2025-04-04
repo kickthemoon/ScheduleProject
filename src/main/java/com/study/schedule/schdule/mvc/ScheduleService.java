@@ -1,14 +1,13 @@
 package com.study.schedule.schdule.mvc;
 
+import com.study.schedule.config.encoder.PasswordEncoder;
 import com.study.schedule.schdule.entity.ScheduleEntity;
 import com.study.schedule.schdule.dto.ScheduleResponseDto;
 import com.study.schedule.user.entity.UserEntity;
 import com.study.schedule.user.mvc.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -18,9 +17,13 @@ public class ScheduleService {
 
     private final UserRepository userRepository;
     private final ScheduleRepository scheduleRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public ScheduleResponseDto registration(String title, String contents, Long userId) {
+    public ScheduleResponseDto registration(String title, String contents, String password, Long userId) {
         UserEntity findUserEntity = userRepository.findByUserIdOrElseThrow(userId);
+
+        // 일정 생성시 로그인 본인이 맞는지 패스워드로 확인.
+        passwordEncoder.matches(password,findUserEntity.getPassword());
 
         ScheduleEntity scheduleEntity = new ScheduleEntity(title, contents);
         scheduleEntity.setUseriD(findUserEntity);
@@ -44,9 +47,7 @@ public class ScheduleService {
         ScheduleEntity findScheduleEntity = scheduleRepository.findByIdOrElseThrow(id);
         String findUserPassword = userRepository.findByIdOrElseThrow(id).getPassword();
 
-        if(!findUserPassword.equals(checkPassword)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "비밀번호가 틀렸습니다");
-        }
+        passwordEncoder.matches(checkPassword,findUserPassword);
 
         findScheduleEntity.updateTitleAndContents(newTitle, newContents);
     }
@@ -55,9 +56,7 @@ public class ScheduleService {
         ScheduleEntity findScheduleEntity = scheduleRepository.findByIdOrElseThrow(id);
         String findUserPassword = userRepository.findByIdOrElseThrow(id).getPassword();
 
-        if(!findUserPassword.equals(checkPassword)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "비밀번호가 틀렸습니다");
-        }
+        passwordEncoder.matches(checkPassword,findUserPassword);
 
         scheduleRepository.delete(findScheduleEntity);
     }

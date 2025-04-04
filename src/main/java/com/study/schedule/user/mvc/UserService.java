@@ -1,12 +1,14 @@
 package com.study.schedule.user.mvc;
 
+import com.study.schedule.config.encoder.PasswordEncoder;
+import com.study.schedule.config.cookie.CookieService;
 import com.study.schedule.user.entity.UserEntity;
 import com.study.schedule.user.dto.UserResponseDto;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -15,9 +17,14 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final CookieService cookieService;
 
     public UserResponseDto signUp(String username, String password, String email) {
-        UserEntity userEntity = new UserEntity(username,password,email);
+
+        String encodePassword = passwordEncoder.encode(password);
+
+        UserEntity userEntity = new UserEntity(username,encodePassword,email);
 
         UserEntity saveUserEntity = userRepository.save(userEntity);
 
@@ -37,20 +44,18 @@ public class UserService {
     public void updateUsernameAndEmail(Long id, String newUsername, String newEmail, String checkPassword) {
         UserEntity findUserEntity = userRepository.findByIdOrElseThrow(id);
 
-        // 입력 받는 비밀번호가 저장된 비밀번호와 같은지 판별
-        if(!findUserEntity.getPassword().equals(checkPassword)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "비밀번호 입력이 틀렸습니다.");
-        }
+        passwordEncoder.matches(checkPassword, findUserEntity.getPassword());
 
         findUserEntity.updateUsernameAndEmail(newUsername,newEmail);
     }
 
-    public void delete(Long id, String checkPassword) {
+    public void delete(Long id, String checkPassword, HttpServletRequest request, HttpServletResponse response) {
         UserEntity findUserEntity = userRepository.findByIdOrElseThrow(id);
 
-        if(!findUserEntity.getPassword().equals(checkPassword)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "비밀번호 입력이 틀렸습니다.");
-        }
+        passwordEncoder.matches(checkPassword, findUserEntity.getPassword());
+
+        // 유저 정보 삭제와 동시에 로그아웃
+        cookieService.logoutCookie(request,response);
 
         userRepository.delete(findUserEntity);
     }
