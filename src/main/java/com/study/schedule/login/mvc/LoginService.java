@@ -6,6 +6,7 @@ import com.study.schedule.user.mvc.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ public class LoginService {
     private final UserRepository userRepository;
     private final CookieAndSession cookieAndSession;
     
-    public void login(String username, String password, HttpSession session, HttpServletResponse response) {
+    public void login(@Valid String username, String password, HttpSession session, HttpServletResponse response) {
 
         UserEntity findUsername = userRepository.findByUsernameOrElseThrow(username);
 

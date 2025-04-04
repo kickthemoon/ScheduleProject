@@ -4,9 +4,11 @@ import com.study.schedule.schdule.dto.ScheduleRequestDto;
 import com.study.schedule.schdule.dto.ScheduleResponseDto;
 import com.study.schedule.others.dto.updateDto.UpdateTitleAndContentsDto;
 import com.study.schedule.others.dto.deleteDto.DeleteCheckPassword;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,12 +16,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/schedules")
 @RequiredArgsConstructor
+@Validated
 public class ScheduleController {
 
     private final ScheduleService scheduleService;
 
     @PostMapping("/registration")
-    public ResponseEntity<ScheduleResponseDto> registration(@RequestBody ScheduleRequestDto requestDto) {
+    public ResponseEntity<ScheduleResponseDto> registration(@RequestBody @Valid ScheduleRequestDto requestDto) {
         ScheduleResponseDto scheduleResponseDto =
                 scheduleService.registration(
                         requestDto.getTitle(), requestDto.getContents(), requestDto.getUserId()

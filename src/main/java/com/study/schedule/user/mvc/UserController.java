@@ -4,9 +4,11 @@ import com.study.schedule.others.dto.deleteDto.DeleteCheckPassword;
 import com.study.schedule.others.dto.updateDto.UpdateUsernameAndEmailDto;
 import com.study.schedule.user.dto.UserRequsetDto;
 import com.study.schedule.user.dto.UserResponseDto;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,12 +16,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
+@Validated
 public class UserController {
 
     private final UserService userService;
 
     @PostMapping("/signup")
-    public ResponseEntity<UserResponseDto> singUp(@RequestBody UserRequsetDto requsetDto) {
+    public ResponseEntity<UserResponseDto> singUp(@RequestBody @Valid UserRequsetDto requsetDto) {
 
         UserResponseDto signUpResponseDto =
                 userService.signUp(
