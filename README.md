@@ -69,7 +69,7 @@ localhost:8080/schedules/{id}
 {
     "newTitle": "새로운 일정 제목1",
     "newContents": "새로운 일정 내용1",
-    "checkPassword": "12345"
+    "checkPassword": "1234"
 }
 
 
