@@ -1,4 +1,4 @@
-POSTMAN 설정 { Body > raw > josn }
+POSTMAN 설정 { Body > raw > josn } / 코드 내 {id}와 password,userId 는 알맞게 수정해주세요.
 
 
 POST 'User 생성' 
