@@ -1,5 +1,7 @@
-필수 과제 lv1 ~ lv3 까지 작성
+필수 과제 lv4 작성
 
-User 와 Schedule 의 각 생성(POST), 목록조회(GET), 개별조회(GET), 수정(PATCH), 삭제(DELEDE)를 작성 -> mysql에 스키마로 데이터 저장
+login 기능 구현 -> 로그인(POST) 로그아웃(POST) 작성
 
-User 생성 할때 넣는 password를 이용해서 User 와 Schedule 의 각 수정(PATCH), 삭제(DELEDE)에 비밀번호 요구
+쿠키/세션 구현 -> 로그인 시 쿠기/세션 생성 및 로그아웃 시 쿠키/세션 삭제
+
+필터 기능 구현 -> 쿠키가 없어도 회원가입과 로그인 기능은 사용가능 / 그외 쿠키가 없으면 사용불가
