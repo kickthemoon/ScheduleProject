@@ -1,6 +1,7 @@
 package com.study.schedule.user.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.study.schedule.config.localDateTime.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -21,6 +22,7 @@ public class UserEntity extends BaseEntity {
     private String username;
 
     @Column(nullable = false)
+    @JsonIgnore
     private String password;
 
     private String email;
